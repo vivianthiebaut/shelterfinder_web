@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<a href="/logout">
+    Logout
+</a>
+ ||
+<a href="/home">
+    Back
+</a>
 
-<form name="reservation_form" action="/shelter/{{shelter.id}}" method="POST">
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-50 p-b-90">
+
+<form class ="login100-form validate-form flex-sb flex-w" name="reservation_form" action="/shelter/{{shelter.id}}" method="POST">
     {% csrf_token %}
-    <label for="bed_qtd_id">
-        Beds to reserve
-    </label>
-    <input id="bed_qtd_id" name="bed_qtd" type="number" placeholder="Number of beds"/>
+
+    <div class="wrap-input100 m-b-16">
+        <input class="input100" id="bed_qtd_id" name="bed_qtd" type="number" placeholder="Number of beds" min="1"/>
+        <span class="focus-input100"></span>
+    </div>
     <input type="hidden" name="request_type" value=""/>
     <input type="button" value="Reserve" onclick="document.reservation_form.elements.request_type.value='reserve';document.reservation_form.submit()"/>
     <input type="button" value="Cancel Reservation" onclick="document.reservation_form.elements.request_type.value='cancel';document.reservation_form.submit()"/>
@@ -50,6 +62,6 @@
 </div>
 
 
-
+</div></div></div>
 
 {% endblock %}

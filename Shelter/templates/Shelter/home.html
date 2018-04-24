@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <a href="/logout">
-    Log out
+    Logout
 </a>
 <div class="limiter">
 		<div class="container-login100">
@@ -15,9 +15,9 @@
 
 
 <form class ="login100-form validate-form flex-sb flex-w" method="GET" action="/home/">
-    <label for="name">Shelter Name: </label>
-    <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+    <div class="wrap-input100 m-b-16">
         <input class="input100" type="text" name="name" placeholder="Filter by Name" id="name"/>
+        <span class="focus-input100"></span>
     </div>
     <label for="gender">Gender: </label>
     <select name="gender" id="gender">
