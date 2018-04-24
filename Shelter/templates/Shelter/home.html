@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
- <style>
+<a href="/logout">
+    Log out
+</a>
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-50 p-b-90">
+<style>
        #map {
         height: 400px;
         width: 100%;
        }
  </style>
 
-<a href="/logout">
-    Log out
-</a>
-<form method="GET" action="/home/">
+
+<form class ="login100-form validate-form flex-sb flex-w" method="GET" action="/home/">
     <label for="name">Shelter Name: </label>
-    <input type="text" name="name" placeholder="Filter by Name" id="name"/>
+    <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+        <input class="input100" type="text" name="name" placeholder="Filter by Name" id="name"/>
+    </div>
     <label for="gender">Gender: </label>
     <select name="gender" id="gender">
         <option value="">
@@ -121,5 +127,5 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCohpOhVwOIHH5FniI_w_sOKn0d3FACjpA&callback=initMap">
     </script>
-
+            </div></div></div>
 {% endblock %}
