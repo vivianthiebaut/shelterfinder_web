@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<form name="reservation_form" action="/shelter/{{shelter.id}}" method="POST">
+    {% csrf_token %}
+    <label for="bed_qtd_id">
+        Beds to reserve
+    </label>
+    <input id="bed_qtd_id" name="bed_qtd" type="number" placeholder="Number of beds"/>
+    <input type="hidden" name="request_type" value=""/>
+    <input type="button" value="Reserve" onclick="document.reservation_form.elements.request_type.value='reserve';document.reservation_form.submit()"/>
+    <input type="button" value="Cancel Reservation" onclick="document.reservation_form.elements.request_type.value='cancel';document.reservation_form.submit()"/>
+
+</form>
+
+{%if message%}
+    <p>{{message}}</p>
+{%endif%}
+
+
+<div>
+   <p>
+       Name: {{shelter.name}}
+   </p>
+   <p>
+       Total Capacity: {{shelter.capacity}}
+   </p>
+   <p>
+       Current Capacity: {{shelter.curr_capacity}}
+   </p>
+   <p>
+       Address: {{shelter.address}}
+   </p>
+   <p>
+       Longitude: {{shelter.longitude}}
+   </p>
+   <p>
+       Latitude: {{shelter.latitude}}
+   </p>
+   <p>
+       Restrictions: {{shelter.restrictions}}
+   </p>
+   <p>
+       Special Notes: {{shelter.special_notes}}
+   </p>
+   <p>
+       Phone Number: {{shelter.phone_number}}
+   </p>
+</div>
+
+
+
+
+{% endblock %}

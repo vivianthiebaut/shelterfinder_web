@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block content %}
+ <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+ </style>
+
+<a href="/logout">
+    Log out
+</a>
+<form method="GET" action="/home/">
+    <label for="name">Shelter Name: </label>
+    <input type="text" name="name" placeholder="Filter by Name" id="name"/>
+    <label for="gender">Gender: </label>
+    <select name="gender" id="gender">
+        <option value="">
+            Any Gender
+        </option>
+        <option value="Women">
+            Female
+        </option>
+        <option value="Men">
+            Male
+        </option>
+    </select>
+    <label for="shelter_type">Shelter Type: </label>
+    <select name="shelter_type" id="shelter_type">
+        <option value="">
+            Any Type
+        </option>
+        <option value="Children">
+            Children
+        </option>
+        <option value="Veterans">
+            Veterans
+        </option>
+        <option value="Young adults">
+            Young adults
+        </option>
+        <option value="Families">
+            Families
+        </option>
+    </select>
+    <button type="submit">
+        Filter
+    </button>
+
+
+</form>
+{%if shelters%}
+<div id="map"></div>
+
+
+
+<table>
+    <thead>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+
+        </th>
+    </thead>
+    <tbody>
+        {%for shelter in shelters%}
+           <tr>
+               <td>
+                   {{shelter.name}}
+               </td>
+               <td>
+                   {{shelter.address}}
+               </td>
+               <td>
+                   <a href="/shelter/{{shelter.id}}">
+                       Details
+                   </a>
+               </td>
+           </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+<script>
+      function initMap() {
+        var atlanta = {lat: {{shelters.first.latitude}}, lng: {{shelters.first.longitude}}};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: atlanta
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        {%for shelter in shelters%}
+
+            var marker{{forloop.counter}} = new google.maps.Marker({
+              position: {lat: {{shelter.latitude}}, lng: {{shelter.longitude}}},
+              map: map
+
+            });
+
+            var content{{forloop.counter}} = "<h2>{{shelter.name}}</h2><h3>{{shelter.phone_number}}</h3><p><a href='/shelter/{{shelter.id}}'>Details</a></p>"
+
+            marker{{forloop.counter}}.addListener('click', function() {
+                infowindow.setContent(content{{forloop.counter}})
+                infowindow.open(map, marker{{forloop.counter}});
+            });
+        {%endfor%}
+      }
+</script>
+
+{%else%}
+    No Shelters Available
+{%endif%}
+
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCohpOhVwOIHH5FniI_w_sOKn0d3FACjpA&callback=initMap">
+    </script>
+
+{% endblock %}
